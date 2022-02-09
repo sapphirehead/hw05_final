@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}	Записи сообщества {{ group.title }} {% endblock %}
+{% block h1 %} {{ group.title }} {% endblock %}
+{% block content %}
+{% load thumbnail %}
+  <p>
+    {{ group.description }}
+  </p>
+  {% for post in page_obj %}
+    {% include 'posts/includes/post_list.html' %}
+  {% empty %}
+    <li>Sorry, no posts in this list.</li>
+  {% endfor %}
+  {% include 'posts/includes/paginator.html' %}
+{% endblock %}
