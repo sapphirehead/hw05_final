@@ -395,7 +395,9 @@ class FollowPagesTests(TestCase):
             )
         )
         response_2 = self.follower_client.get(reverse('posts:follow_index'))
-        response_3 = self.not_follower_client.get(reverse('posts:follow_index'))
+        response_3 = self.not_follower_client.get(
+            reverse('posts:follow_index')
+        )
         self.assertEqual(response_2.context['page_obj']
                          .paginator.page(1)
                          .object_list.count(), 2)
