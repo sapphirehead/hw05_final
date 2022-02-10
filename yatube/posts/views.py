@@ -28,7 +28,7 @@ def group_posts(request, slug):
     Принимает параметр slug из path()
     """
     groups_list = get_object_or_404(Group, slug=slug)
-    posts_list = groups_list.posts.all()
+    posts_list = groups_list.posts.select_related('author')
     paginator = Paginator(posts_list, settings.PAGES_LIMIT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
