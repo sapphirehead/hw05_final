@@ -4,18 +4,16 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Follow, Group, Post, User
 from .forms import PostForm, CommentForm
+from django.conf import settings
 
 
-LIMIT = 10
-
-
-@cache_page(20)
+@cache_page(settings.CACHES_LIMIT)
 def index(request):
     """Сохраняем в posts объекты модели Post,
     отсортированные по полю pub_date по убыванию.
     """
     posts_list = Post.objects.all()
-    paginator = Paginator(posts_list, LIMIT)
+    paginator = Paginator(posts_list, settings.PAGES_LIMIT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
@@ -31,7 +29,7 @@ def group_posts(request, slug):
     """
     groups_list = get_object_or_404(Group, slug=slug)
     posts_list = groups_list.posts.all()
-    paginator = Paginator(posts_list, LIMIT)
+    paginator = Paginator(posts_list, settings.PAGES_LIMIT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
@@ -47,7 +45,7 @@ def profile(request, username):
     """
     author = get_object_or_404(User, username=username)
     posts_list = Post.objects.select_related('author').filter(author=author)
-    paginator = Paginator(posts_list, LIMIT)
+    paginator = Paginator(posts_list, settings.PAGES_LIMIT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     following = False
@@ -138,7 +136,7 @@ def add_comment(request, post_id):
 def follow_index(request):
     """Выводит посты авторов, на которых подписан текущий пользователь."""
     posts_list = Post.objects.filter(author__following__user=request.user)
-    paginator = Paginator(posts_list, LIMIT)
+    paginator = Paginator(posts_list, settings.PAGES_LIMIT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
@@ -160,5 +158,7 @@ def profile_follow(request, username):
 def profile_unfollow(request, username):
     """Аннулирует подписку на автора, удаляя запись БД"""
     author = get_object_or_404(User, username=username)
-    Follow.objects.filter(author=author, user=request.user).delete()
+    follow = Follow.objects.filter(author=author, user=request.user)
+    if follow.exists():
+        follow.delete()
     return redirect('posts:profile', username)

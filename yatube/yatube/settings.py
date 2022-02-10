@@ -115,6 +115,9 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 # custom errors View enable
 CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
 
+PAGES_LIMIT = 10
+CACHES_LIMIT = 20
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
