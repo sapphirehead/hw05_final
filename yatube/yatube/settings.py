@@ -4,7 +4,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '%q(x+ywfhi-zy=b-uf-(^71=tu@v=tk)iy%n1d9t7nibh03ld3'
 
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     import mimetypes
