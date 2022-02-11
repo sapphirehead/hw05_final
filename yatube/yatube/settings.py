@@ -1,6 +1,5 @@
 import os
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '%q(x+ywfhi-zy=b-uf-(^71=tu@v=tk)iy%n1d9t7nibh03ld3'
@@ -9,6 +8,7 @@ DEBUG = False
 
 if DEBUG:
     import mimetypes
+
     mimetypes.add_type("application/javascript", ".js", True)
 
 ALLOWED_HOSTS = [
@@ -107,8 +107,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+if DEBUG:
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
