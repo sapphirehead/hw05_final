@@ -5,13 +5,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '%q(x+ywfhi-zy=b-uf-(^71=tu@v=tk)iy%n1d9t7nibh03ld3'
 
-DEBUG = True
+DEBUG = False
+
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("application/javascript", ".js", True)
 
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '[::1]',
     'testserver',
+    'www.bluehead.pythonanywhere.com',
+    'bluehead.pythonanywhere.com',
 ]
 
 INSTALLED_APPS = [
@@ -25,12 +31,11 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'core.apps.CoreConfig',
     'about.apps.AboutConfig',
-
     'sorl.thumbnail',
     'debug_toolbar',
 ]
 
-# Добавьте IP адреса, при обращении с которых будет доступен DjDT
+# IP адреса, при обращении с которых будет доступен DjDT
 
 INTERNAL_IPS = [
     '127.0.0.1',
