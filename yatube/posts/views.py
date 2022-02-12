@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Follow, Group, Post, User
+from .models import Comment, Follow, Group, Post, User
 from .forms import PostForm, CommentForm
 from django.conf import settings
 
@@ -13,11 +13,16 @@ def index(request):
     отсортированные по полю pub_date по убыванию.
     """
     posts_list = Post.objects.all()
+    # post = Post.objects.filter()
+    # num_comments = post.filter(id=post.id).comments.count()
+    # num_comment = Comment.objects.annotate(num_comment=Count('id'))
+    # num_comments = Post.objects.all()
     paginator = Paginator(posts_list, settings.PAGES_LIMIT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
         'page_obj': page_obj,
+        # 'num_comments': num_comments,
     }
     return render(request, 'posts/index.html', context)
 
