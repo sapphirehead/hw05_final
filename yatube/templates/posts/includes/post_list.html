@@ -19,7 +19,7 @@
 		<img class="card-img my-2" src="{{ im.url }}">
 	{% endthumbnail %}
 	<section class="card-body">
-		<p>{{ post.text }}</p>
+		<p>{{ post.text|linebreaksbr }}</p>
 		{% if post.comments.exists %}
 			<a
 				href="{% url 'posts:post_detail' post.id %}"

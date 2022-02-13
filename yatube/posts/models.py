@@ -68,6 +68,7 @@ class Comment(CreatedModel):
     )
 
     class Meta(CreatedModel.Meta):
+        ordering = ('pub_date',)
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
 
