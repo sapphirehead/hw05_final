@@ -21,6 +21,6 @@ Python 3.9, Django 2.2.19, pytest 6.2.4
 
 Автор
 
-sapphirehead
+Быков Евгений
 
 [![CI](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml)
